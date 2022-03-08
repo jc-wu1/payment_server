@@ -17,7 +17,8 @@ const sendNotification = (notificationPayload) => {
         android: {
             notification: {
                 icon: 'stock_ticker_update',
-                color: '#7e55c3'
+                color: '#7e55c3',
+                clickAction: 'choose-payment-method'
             }
         },
         topic: topicName,

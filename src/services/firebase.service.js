@@ -11,8 +11,8 @@ const sendNotification = (notificationPayload) => {
     const topicName = 'payment';
     const message = {
         "notification": {
-            "title": notificationPayload.title,
-            "body": notificationPayload.body
+            "title": 'test',
+            "body": 'test'
         },
         "android": {
             "notification": {

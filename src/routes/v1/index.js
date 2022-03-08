@@ -3,6 +3,7 @@ const authRoute = require('./auth.route');
 const userRoute = require('./user.route');
 const docsRoute = require('./docs.route');
 const paymentRoute = require('./payment.route');
+const callbackRoute = require('./callback.route');
 const config = require('../../config/config');
 
 const router = express.Router();
@@ -28,6 +29,10 @@ const devRoutes = [
     path: '/payment',
     route: paymentRoute,
   },
+  {
+    path: '/callback',
+    route: callbackRoute,
+  }
 ];
 
 defaultRoutes.forEach((route) => {

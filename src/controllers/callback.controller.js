@@ -8,11 +8,13 @@ const sendNotification = require('../services/firebase.service');
 const callbackNotification = catchAsync(async (req, res) => {
     if (req.headers["x-callback-token"] == config.xendit_callback_token) {
         // const firebaseToken = '';
-        const payload = {
-            'title': 'Test',
-            'body': 'Test'
+        if (req.body.bank_code) {
+            const payload = {
+                'title': 'Test',
+                'body': 'Test'
+            }
+            sendNotification(payload);
         }
-        sendNotification(payload);
         res.status(httpStatus.OK).json(req.body);
     } else {
         res.status(httpStatus.FORBIDDEN).json({ response: "Forbidden" });

@@ -10,18 +10,19 @@ firebase.initializeApp({
 const sendNotification = (notificationPayload) => {
     const topicName = 'payment';
     const message = {
-        "notification": {
-            "title": 'test',
-            "body": 'test'
+        notification: {
+            title: notificationPayload.title,
+            body: notificationPayload.body
         },
-        "android": {
-            "notification": {
-                clickAction: 'news_intent'
+        android: {
+            notification: {
+                icon: 'stock_ticker_update',
+                color: '#7e55c3'
             }
         },
         topic: topicName,
     };
-    firebase.messaging().sendAll(message).then((response) => {
+    firebase.messaging().send(message).then((response) => {
         console.log(response + ' messages were sent successfully');
     }).catch((error) => {
         console.log('Error sending message:', error);

@@ -20,11 +20,10 @@ const callbackNotification = catchAsync(async (req, res) => {
             //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
             //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
         });
-
+        
         let amount = formatter.format(unformattedAmount); /* $2,500.00 */
 
-
-        if (req.body) {
+        if (req.body.transaction_timestamp) {
             const payload = {
                 'title': `Pembayaran ${name} diterima!`,
                 'body': `Pembayaran senilai ${amount} dengan ${isVa ? `menggunakan virtual account ${bankCode}` : 'menggunakan retail'} berhasil`

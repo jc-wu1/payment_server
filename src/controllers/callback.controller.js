@@ -8,10 +8,15 @@ const sendNotification = require('../services/firebase.service');
 const callbackNotification = catchAsync(async (req, res) => {
     if (req.headers["x-callback-token"] == config.xendit_callback_token) {
         // const firebaseToken = '';
-        if (req.body.status) {
+        let data = req.body.data;
+        let paymentMethod = data.payment_method;
+        let isVa = paymentMethod.virtual_account ? true : false;
+        let amount = data.amount;
+
+        if (req.body.status === 'SUCCEEDED') {
             const payload = {
-                'title': 'Test',
-                'body': 'Test'
+                'title': 'Payment Complete',
+                'body': `Pembayaran senilai ${amount} dengan ${isVa ? 'menggunakan virtual account' : 'menggunakan retail'} berhasil`
             }
             sendNotification(payload);
         }

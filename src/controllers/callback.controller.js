@@ -7,20 +7,19 @@ const sendNotification = require('../services/firebase.service');
 
 const callbackNotification = catchAsync(async (req, res) => {
     if (req.headers["x-callback-token"] == config.xendit_callback_token) {
-        console.log(req.body);
-        // const firebaseToken = '';
-        // let data = req.body.data;
-        // let paymentMethod = data.payment_method;
-        // let isVa = paymentMethod.virtual_account ? true : false;
-        // let amount = data.amount;
+        // console.log(req.body);
+        let amount = req.body.amount;
+        let isVa = req.body.callback_virtual_account_id ? true : false;
+        let bankCode = isVa ? req.body.bank_code : 'null';
+        let name = req.body.external_id;
 
-        // if (req.body.status === 'SUCCEEDED') {
-        //     const payload = {
-        //         'title': 'Payment Complete',
-        //         'body': `Pembayaran senilai ${amount} dengan ${isVa ? 'menggunakan virtual account' : 'menggunakan retail'} berhasil`
-        //     }
-        //     sendNotification(payload);
-        // }
+        if (req.body) {
+            const payload = {
+                'title': `Pembayaran ${name} diterima!`,
+                'body': `Pembayaran senilai ${amount} dengan ${isVa ? 'menggunakan virtual account' : 'menggunakan retail'} berhasil`
+            }
+            sendNotification(payload);
+        }
         res.status(httpStatus.OK).json(req.body);
     } else {
         res.status(httpStatus.FORBIDDEN).json({ response: "Forbidden" });

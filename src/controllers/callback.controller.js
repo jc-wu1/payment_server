@@ -8,7 +8,7 @@ const sendNotification = require('../services/firebase.service');
 const callbackNotification = catchAsync(async (req, res) => {
     if (req.headers["x-callback-token"] == config.xendit_callback_token) {
         // const firebaseToken = '';
-        if (req.body.bank_code) {
+        if (req.body.status) {
             const payload = {
                 'title': 'Test',
                 'body': 'Test'

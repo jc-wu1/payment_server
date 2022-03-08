@@ -8,15 +8,26 @@ const sendNotification = require('../services/firebase.service');
 const callbackNotification = catchAsync(async (req, res) => {
     if (req.headers["x-callback-token"] == config.xendit_callback_token) {
         // console.log(req.body);
-        let amount = req.body.amount;
+        let unformattedAmount = req.body.amount;
         let isVa = req.body.callback_virtual_account_id ? true : false;
         let bankCode = isVa ? req.body.bank_code : 'null';
         let name = req.body.external_id;
 
+        var formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'IDR',
+            // These options are needed to round to whole numbers if that's what you want.
+            //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+            //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+        });
+
+        let amount = formatter.format(unformattedAmount); /* $2,500.00 */
+
+
         if (req.body) {
             const payload = {
                 'title': `Pembayaran ${name} diterima!`,
-                'body': `Pembayaran senilai ${amount} dengan ${isVa ? 'menggunakan virtual account' : 'menggunakan retail'} berhasil`
+                'body': `Pembayaran senilai ${amount} dengan ${isVa ? `menggunakan virtual account ${bankCode}` : 'menggunakan retail'} berhasil`
             }
             sendNotification(payload);
         }

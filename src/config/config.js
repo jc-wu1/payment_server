@@ -10,6 +10,7 @@ const envVarsSchema = Joi.object()
     PORT: Joi.number().default(3000),
     XENDIT_SECRET_KEY: Joi.string().required().description('XENDIT secret key'),
     XENDIT_CALLBACK_TOKEN: Joi.string().required().description('XENDIT callback token'),
+    FCM_SERVER_KEY: Joi.string().required().description('FCM server key'),
     // MONGODB_URL: Joi.string().required().description('Mongo DB url'),
     // JWT_SECRET: Joi.string().required().description('JWT secret key'),
     // JWT_ACCESS_EXPIRATION_MINUTES: Joi.number().default(30).description('minutes after which access tokens expire'),
@@ -39,6 +40,7 @@ module.exports = {
   port: envVars.PORT,
   xendit_secret: envVars.XENDIT_SECRET_KEY,
   xendit_callback_token: envVars.XENDIT_CALLBACK_TOKEN,
+  fcm_server_key: envVars.FCM_SERVER_KEY,
   // mongoose: {
   //   url: envVars.MONGODB_URL + (envVars.NODE_ENV === 'test' ? '-test' : ''),
   //   options: {

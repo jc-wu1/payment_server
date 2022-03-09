@@ -21,7 +21,10 @@ const callbackNotification = catchAsync(async (req, res) => {
         if (req.body.transaction_timestamp) {
             const payload = {
                 'title': `Pembayaran ${name} diterima!`,
-                'body': `Pembayaran senilai ${amount} dengan ${isVa ? `menggunakan virtual account ${bankCode}` : `menggunakan ${retailName}`} berhasil`
+                'body': `Pembayaran senilai ${amount} dengan ${isVa ? `menggunakan virtual account ${bankCode}` : `menggunakan ${retailName}`} berhasil`,
+                'amount': amount,
+                'paymentType': isVa? `Virtual Account ${bankCode}` : `Pembayaran dengan ${retailName}`,
+                'date': req.body.transaction_timestamp
             }
             sendNotification(payload);
         }

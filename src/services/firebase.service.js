@@ -14,6 +14,11 @@ const sendNotification = (notificationPayload) => {
             title: notificationPayload.title,
             body: notificationPayload.body
         },
+        data: {
+            type: notificationPayload.paymentType,
+            amount:notificationPayload.amount,
+            date: notificationPayload.date,
+        },
         // android: {
         //     notification: {
         //         icon: 'stock_ticker_update',

@@ -14,13 +14,13 @@ const sendNotification = (notificationPayload) => {
             title: notificationPayload.title,
             body: notificationPayload.body
         },
-        android: {
-            notification: {
-                icon: 'stock_ticker_update',
-                color: '#7e55c3',
-                clickAction: 'choose-payment-method'
-            }
-        },
+        // android: {
+        //     notification: {
+        //         icon: 'stock_ticker_update',
+        //         color: '#7e55c3',
+        //         clickAction: 'choose-payment-method'
+        //     }
+        // },
         topic: topicName,
     };
     firebase.messaging().send(message).then((response) => {
